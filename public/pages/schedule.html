@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schedule Pickup — Nirvana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+         :root {
+            --green: #2d6a4f;
+            --green-light: #52b788;
+            --green-pale: #d8f3dc;
+            --dark: #1a2e1e;
+            --cream: #f8f4ee;
+            --gold: #c9a84c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f0f4f1;
+            min-height: 100vh;
+        }
+        
+        .topbar {
+            background: var(--dark);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .topbar .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 900;
+            text-decoration: none;
+        }
+        
+        .topbar .logo span {
+            color: var(--gold);
+        }
+        
+        .topbar-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .topbar-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .topbar-links a:hover {
+            color: white;
+        }
+        
+        .container {
+            max-width: 860px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 0.4rem;
+        }
+        
+        .subtitle {
+            color: #6b7c6c;
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+        /* MATERIAL GRID */
+        
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .material-btn {
+            background: white;
+            border: 2px solid #e0e8e1;
+            border-radius: 14px;
+            padding: 1.2rem 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        
+        .material-btn:hover {
+            border-color: var(--green-light);
+            transform: translateY(-2px);
+        }
+        
+        .material-btn.selected {
+            border-color: var(--green);
+            background: var(--green-pale);
+        }
+        
+        .material-btn .mat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .material-btn .mat-name {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .material-btn .mat-pts {
+            font-size: 0.75rem;
+            color: var(--green);
+            font-weight: 500;
+            margin-top: 0.2rem;
+        }
+        /* FORM */
+        
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.4rem;
+        }
+        
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 2px solid #e0e8e1;
+            background: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus,
+        select:focus {
+            border-color: var(--green);
+        }
+        /* PREVIEW */
+        
+        .preview-card {
+            background: var(--dark);
+            color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .preview-card h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.2rem;
+            color: var(--green-light);
+        }
+        
+        .preview-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.7rem;
+            font-size: 0.9rem;
+        }
+        
+        .preview-row .key {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .preview-row .val {
+            font-weight: 600;
+        }
+        
+        .preview-row .val.gold {
+            color: var(--gold);
+        }
+        
+        .preview-row .val.green {
+            color: var(--green-light);
+        }
+        
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 1rem 0;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-submit:hover {
+            background: var(--dark);
+        }
+        
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .msg {
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .msg.error {
+            background: #fde8e8;
+            color: #c0392b;
+        }
+        
+        .msg.success {
+            background: var(--green-pale);
+            color: var(--green);
+        }
+        
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topbar">
+        <a href="/" class="logo">Nirv<span>ana</span></a>
+        <div class="topbar-links">
+            <a href="/dashboard">← Dashboard</a>
+            <a href="/rewards">Rewards</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Schedule a Pickup</h1>
+        <p class="subtitle">Select your recyclable material, enter details, and we'll come to your doorstep.</p>
+
+        <div class="section-label">Step 1 — Select Material Type</div>
+        <div class="material-grid" id="materialGrid"></div>
+
+        <div class="form-card">
+            <h3>Step 2 — Pickup Details</h3>
+            <div class="msg" id="msg"></div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Quantity (kg) *</label>
+                    <input type="number" id="quantity" min="0.1" step="0.1" placeholder="e.g. 2.5" oninput="updatePreview()" />
+                </div>
+                <div class="form-group">
+                    <label>Pickup Date *</label>
+                    <input type="date" id="schedDate" oninput="updatePreview()" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Time Slot *</label>
+                <select id="timeSlot" onchange="updatePreview()">
+        <option value="">Choose a slot...</option>
+        <option value="9AM-12PM">Morning: 9AM – 12PM</option>
+        <option value="12PM-3PM">Afternoon: 12PM – 3PM</option>
+        <option value="3PM-6PM">Evening: 3PM – 6PM</option>
+      </select>
+            </div>
+            <div class="form-group">
+                <label>Pickup Address *</label>
+                <input type="text" id="address" placeholder="Flat/House no., Street, Area" oninput="updatePreview()" />
+            </div>
+            <div class="form-group">
+                <label>City *</label>
+                <input type="text" id="city" placeholder="e.g. Amravati" />
+            </div>
+        </div>
+
+        <div class="preview-card" id="previewCard">
+            <h3>📋 Pickup Summary</h3>
+            <div class="preview-row"><span class="key">Material</span><span class="val" id="prevMat">—</span></div>
+            <div class="preview-row"><span class="key">Quantity</span><span class="val" id="prevQty">—</span></div>
+            <div class="preview-row"><span class="key">Date & Slot</span><span class="val" id="prevDate">—</span></div>
+            <div class="preview-row"><span class="key">Address</span><span class="val" id="prevAddr">—</span></div>
+            <hr class="divider" />
+            <div class="preview-row"><span class="key">You'll Earn (Points)</span><span class="val green" id="prevPts">—</span></div>
+            <div class="preview-row"><span class="key">You'll Earn (Cash)</span><span class="val gold" id="prevCash">—</span></div>
+        </div>
+
+        <button class="btn-submit" id="submitBtn" onclick="schedulePickup()">Confirm & Schedule Pickup →</button>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('nirvana_token');
+        if (!token) window.location.href = '/login';
+
+        const materials = [{
+            id: 'plastic',
+            name: 'Plastic',
+            icon: '🧴',
+            pts: 20,
+            cash: 5
+        }, {
+            id: 'paper',
+            name: 'Paper',
+            icon: '📄',
+            pts: 10,
+            cash: 3
+        }, {
+            id: 'metal',
+            name: 'Metal',
+            icon: '🔩',
+            pts: 30,
+            cash: 15
+        }, {
+            id: 'glass',
+            name: 'Glass',
+            icon: '🫙',
+            pts: 15,
+            cash: 4
+        }, {
+            id: 'electronics',
+            name: 'Electronics',
+            icon: '📱',
+            pts: 50,
+            cash: 25
+        }, {
+            id: 'cardboard',
+            name: 'Cardboard',
+            icon: '📦',
+            pts: 8,
+            cash: 2
+        }, {
+            id: 'rubber',
+            name: 'Rubber',
+            icon: '⚫',
+            pts: 12,
+            cash: 6
+        }, {
+            id: 'textile',
+            name: 'Textile',
+            icon: '👕',
+            pts: 10,
+            cash: 3
+        }];
+
+        let selectedMaterial = null;
+
+        // Set min date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('schedDate').min = tomorrow.toISOString().split('T')[0];
+
+        // Render material grid
+        document.getElementById('materialGrid').innerHTML = materials.map(m => `
+  <div class="material-btn" id="mat_${m.id}" onclick="selectMaterial('${m.id}')">
+    <div class="mat-icon">${m.icon}</div>
+    <div class="mat-name">${m.name}</div>
+    <div class="mat-pts">${m.pts} pts/kg</div>
+  </div>
+`).join('');
+
+        function selectMaterial(id) {
+            selectedMaterial = materials.find(m => m.id === id);
+            document.querySelectorAll('.material-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('mat_' + id).classList.add('selected');
+            updatePreview();
+        }
+
+        function updatePreview() {
+            if (!selectedMaterial) return;
+            const qty = parseFloat(document.getElementById('quantity').value) || 0;
+            const date = document.getElementById('schedDate').value;
+            const slot = document.getElementById('timeSlot').value;
+            const addr = document.getElementById('address').value;
+
+            if (qty > 0) {
+                document.getElementById('previewCard').style.display = 'block';
+                document.getElementById('prevMat').textContent = selectedMaterial.icon + ' ' + selectedMaterial.name;
+                document.getElementById('prevQty').textContent = qty + ' kg';
+                document.getElementById('prevDate').textContent = date ? `${new Date(date).toLocaleDateString('en-IN')} | ${slot || '—'}` : '—';
+                document.getElementById('prevAddr').textContent = addr || '—';
+                document.getElementById('prevPts').textContent = '+' + Math.round(qty * selectedMaterial.pts) + ' points';
+                document.getElementById('prevCash').textContent = '₹' + (qty * selectedMaterial.cash).toFixed(2);
+            }
+        }
+
+        async function schedulePickup() {
+            if (!selectedMaterial) {
+                showMsg('Please select a material type', 'error');
+                return;
+            }
+            const quantity = parseFloat(document.getElementById('quantity').value);
+            const scheduledDate = document.getElementById('schedDate').value;
+            const timeSlot = document.getElementById('timeSlot').value;
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+
+            if (!Number.isFinite(quantity) || quantity < 0.1) {
+                showMsg('Please enter a valid quantity (minimum 0.1 kg)', 'error');
+                return;
+            }
+
+            if (quantity > 1000) {
+                showMsg('Quantity cannot exceed 1000 kg', 'error');
+                return;
+            }
+            if (!scheduledDate) {
+                showMsg('Please select a pickup date', 'error');
+                return;
+            }
+
+            const selectedDate = new Date(`${scheduledDate}T00:00:00`);
+            const minimumDate = new Date();
+            minimumDate.setHours(0, 0, 0, 0);
+            minimumDate.setDate(minimumDate.getDate() + 1);
+
+            if (selectedDate < minimumDate) {
+                showMsg('Pickup date must be at least tomorrow', 'error');
+                return;
+            }
+            if (!timeSlot) {
+                showMsg('Please select a time slot', 'error');
+                return;
+            }
+            if (!address) {
+                showMsg('Please enter your pickup address', 'error');
+                return;
+            }
+            if (!city) {
+                showMsg('Please enter your city', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Scheduling...';
+
+            try {
+                const res = await fetch('/api/pickups', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + token
+                    },
+                    body: JSON.stringify({
+                        materialType: selectedMaterial.id,
+                        quantity,
+                        scheduledDate,
+                        timeSlot,
+                        address,
+                        city
+                    })
+                });
+                const data = await res.json().catch(() => ({}));
+
+                if (res.ok && data.success) {
+                    showMsg(`✅ Pickup scheduled! You'll earn ${data.pickup.pointsEarned} points & ₹${data.pickup.cashEarned} on collection.`, 'success');
+                    setTimeout(() => window.location.href = '/dashboard', 2000);
+                } else {
+                    showMsg(data.message || 'Failed to schedule pickup', 'error');
+                    btn.disabled = false;
+                    btn.textContent = 'Confirm & Schedule Pickup →';
+                }
+            } catch (error) {
+                console.error('Schedule pickup error:', error);
+                showMsg('Unable to connect to the server. Please try again.', 'error');
+                btn.disabled = false;
+                btn.textContent = 'Confirm & Schedule Pickup →';
+            }
+        }
+
+        function showMsg(text, type) {
+            const el = document.getElementById('msg');
+            el.textContent = text;
+            el.className = 'msg ' + type;
+            el.style.display = 'block';
+            el.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+
+</html>

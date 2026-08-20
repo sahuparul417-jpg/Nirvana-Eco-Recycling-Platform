@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nirvana — Segregate Today, Sustain Tomorrow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+         :root {
+            --green: #2d6a4f;
+            --green-light: #52b788;
+            --green-pale: #d8f3dc;
+            --earth: #6b4226;
+            --cream: #f8f4ee;
+            --dark: #1a2e1e;
+            --gold: #c9a84c;
+            --text: #2c3e2d;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        /* NAV */
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.2rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(248, 244, 238, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(45, 106, 79, 0.1);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--green);
+            letter-spacing: -1px;
+        }
+        
+        .logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--green);
+        }
+        
+        .btn-nav {
+            background: var(--green);
+            color: white !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            transition: background 0.2s, transform 0.2s !important;
+        }
+        
+        .btn-nav:hover {
+            background: var(--dark) !important;
+            transform: translateY(-1px);
+        }
+        /* HERO */
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 60% 50%, rgba(82, 183, 136, 0.12) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201, 168, 76, 0.08) 0%, transparent 60%);
+        }
+        
+        .hero-content {
+            max-width: 620px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-tag {
+            display: inline-block;
+            background: var(--green-pale);
+            color: var(--green);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.6s ease forwards;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.0;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.6s ease 0.1s both;
+        }
+        
+        .hero h1 em {
+            color: var(--green);
+            font-style: normal;
+        }
+        
+        .hero p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #4a5e4b;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            animation: fadeUp 0.6s ease 0.2s both;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeUp 0.6s ease 0.3s both;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--green);
+            color: white;
+            text-decoration: none;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(45, 106, 79, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(45, 106, 79, 0.35);
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--green);
+            text-decoration: none;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid var(--green);
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--green);
+            color: white;
+        }
+        /* FLOATING CARD */
+        
+        .hero-visual {
+            position: absolute;
+            right: 6%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            animation: fadeLeft 0.8s ease 0.4s both;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.2rem 1.8rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--green-light);
+            min-width: 200px;
+        }
+        
+        .stat-card .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+        
+        .stat-card .label {
+            font-size: 0.85rem;
+            color: #6b7c6c;
+            font-weight: 500;
+        }
+        /* STATS BAND */
+        
+        .stats-band {
+            background: var(--dark);
+            padding: 3rem 4rem;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-item .big {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--green-light);
+        }
+        
+        .stat-item p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+        /* FEATURES */
+        
+        .section {
+            padding: 6rem 4rem;
+        }
+        
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 700;
+            color: var(--dark);
+            max-width: 600px;
+            line-height: 1.2;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(45, 106, 79, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: default;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(45, 106, 79, 0.12);
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--green-pale);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.6rem;
+        }
+        
+        .feature-card p {
+            color: #5a6e5b;
+            line-height: 1.6;
+            font-size: 0.93rem;
+        }
+        /* HOW IT WORKS */
+        
+        .how-section {
+            background: var(--green-pale);
+        }
+        
+        .steps {
+            display: flex;
+            gap: 0;
+            margin-top: 3rem;
+            overflow-x: auto;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -10px;
+            top: 3rem;
+            font-size: 1.5rem;
+            color: var(--green-light);
+        }
+        
+        .step-num {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+        
+        .step h4 {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.4rem;
+        }
+        
+        .step p {
+            font-size: 0.85rem;
+            color: #4a5e4b;
+        }
+        /* REWARD SECTION */
+        
+        .rewards-section {
+            background: var(--dark);
+            color: white;
+        }
+        
+        .rewards-section .section-label {
+            color: var(--green-light);
+        }
+        
+        .rewards-section h2 {
+            color: white;
+        }
+        
+        .reward-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .reward-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: background 0.3s;
+        }
+        
+        .reward-card:hover {
+            background: rgba(82, 183, 136, 0.15);
+        }
+        
+        .reward-card .icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .reward-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+        }
+        
+        .reward-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        /* CTA SECTION */
+        
+        .cta-section {
+            text-align: center;
+            padding: 7rem 4rem;
+            background: linear-gradient(135deg, var(--green) 0%, var(--dark) 100%);
+            color: white;
+        }
+        
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.2;
+            color: white;
+        }
+        
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+        }
+        
+        .btn-white {
+            background: white;
+            color: var(--green);
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .btn-white:hover {
+            background: var(--green-pale);
+            transform: translateY(-2px);
+        }
+        /* FOOTER */
+        
+        footer {
+            background: #0f1a10;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 3rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--green-light);
+            font-weight: 700;
+        }
+        
+        footer p {
+            font-size: 0.85rem;
+        }
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        
+        @keyframes fadeLeft {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+            .hero-visual {
+                display: none;
+            }
+            .section {
+                padding: 4rem 1.5rem;
+            }
+            .stats-band {
+                padding: 2.5rem 1.5rem;
+            }
+            footer {
+                padding: 2rem 1.5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">Nirv<span>ana</span></div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how">How It Works</a>
+            <a href="#rewards">Rewards</a>
+            <a href="/login">Login</a>
+            <a href="/register" class="btn-nav">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-tag">🌿 Swachh Bharat Abhiyan</div>
+            <h1>Segregate <em>Today</em>,<br>Sustain Tomorrow</h1>
+            <p>India's smart AI-based recyclable waste management platform. Schedule pickups, earn rewards, and help build cleaner cities — one recyclable at a time.</p>
+            <div class="hero-cta">
+                <a href="/register" class="btn-primary">Start Recycling ↗</a>
+                <a href="#how" class="btn-secondary">How It Works</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="stat-card">
+                <div class="num">50+</div>
+                <div class="label">Points per kg Metal</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">₹15</div>
+                <div class="label">Cash per kg Metal</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">0 min</div>
+                <div class="label">Minimum quantity</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-band">
+        <div class="stat-item">
+            <div class="big">8+</div>
+            <p>Material Types Accepted</p>
+        </div>
+        <div class="stat-item">
+            <div class="big">100%</div>
+            <p>Recyclable Focus</p>
+        </div>
+        <div class="stat-item">
+            <div class="big">3×</div>
+            <p>Reward Options</p>
+        </div>
+        <div class="stat-item">
+            <div class="big">0₹</div>
+            <p>No Platform Fee</p>
+        </div>
+    </div>
+
+    <section class="section" id="features">
+        <div class="section-label">Platform Features</div>
+        <h2>Everything you need to recycle smarter</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3>Doorstep Pickup</h3>
+                <p>Schedule a convenient pickup from your home. Choose your time slot — morning, afternoon, or evening.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Reward Points</h3>
+                <p>Earn green points for every kg of recyclable material. More you recycle, more you earn.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Waste Segregation AI</h3>
+                <p>Our AI guides you to correctly categorize your waste — plastic, paper, metal, glass, electronics & more.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <h3>Nearby Recycling Points</h3>
+                <p>Find recycling drop-off centers nearest to your location with live availability status.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Cash Conversion</h3>
+                <p>Convert your reward points directly to wallet cash, credited instantly for easy use or withdrawal.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌱</div>
+                <h3>Eco Marketplace</h3>
+                <p>Spend your points on products made from recycled materials. Shop sustainably, guilt-free.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section how-section" id="how">
+        <div class="section-label">Process</div>
+        <h2>Recycling in 5 simple steps</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h4>Select Material</h4>
+                <p>Choose the type of recyclable you want to submit</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h4>Schedule Pickup</h4>
+                <p>Pick a date and time slot that works for you</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h4>We Collect</h4>
+                <p>Our collection partner arrives at your doorstep</p>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <h4>Earn Rewards</h4>
+                <p>Points & cash credited to your account instantly</p>
+            </div>
+            <div class="step">
+                <div class="step-num">5</div>
+                <h4>Redeem</h4>
+                <p>Convert to cash or shop eco-friendly products</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section rewards-section" id="rewards">
+        <div class="section-label">Rewards System</div>
+        <h2>Three ways to benefit from recycling</h2>
+        <div class="reward-cards">
+            <div class="reward-card">
+                <div class="icon">💵</div>
+                <h3>Cash Conversion</h3>
+                <p>Earn points for every waste submission. Convert 100 points = ₹10 directly to your wallet. Direct bank withdrawal available.</p>
+            </div>
+            <div class="reward-card">
+                <div class="icon">🛍️</div>
+                <h3>Eco-friendly Products</h3>
+                <p>Use points to buy products made from recycled materials. Encourages sustainable shopping habits on our platform.</p>
+            </div>
+            <div class="reward-card">
+                <div class="icon">📋</div>
+                <h3>Future Tax Benefits</h3>
+                <p>Coming soon: integration with government tax redemption systems for active recyclers. Reduce your tax liability.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Join the movement towards cleaner cities</h2>
+        <p>Small actions, big impact. Start recycling today and earn while making a difference.</p>
+        <a href="/register" class="btn-white">Create Free Account →</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Nirvana</div>
+        <p>Smart AI-Based Waste Management | Swachh Bharat Abhiyan</p>
+        <p>© 2025 Nirvana. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
